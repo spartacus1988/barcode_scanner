@@ -3,7 +3,19 @@ import sys
 import requests
 import json
 
-api_key = "" #https://upcdatabase.org/
+
+def extract_api_key(pathfile):
+    with open(pathfile, 'r') as f:
+        for line in f:
+            api_key = line.strip().split(' ')
+        return api_key[0]
+
+
+#api_key = "" #https://upcdatabase.org/
+api_key = extract_api_key('api_key.txt')
+print(api_key)
+
+
 
 def barcode_reader():
     """Barcode code obtained from 'brechmos' 
@@ -68,6 +80,7 @@ def barcode_reader():
 def UPC_lookup(api_key,upc):
     '''V3 API'''
 
+    upc = '072311130127'
     url = "https://api.upcdatabase.org/product/%s/%s" % (upc, api_key)
 
     headers = {
@@ -84,6 +97,12 @@ def UPC_lookup(api_key,upc):
 if __name__ == '__main__':
     try:
         while True:
-            UPC_lookup(api_key,barcode_reader())
+            #UPC_lookup(api_key,barcode_reader())
+            upc = '072311130127'
+            api_key = extract_api_key('api_key.txt')
+            print(upc)
+            print(api_key)
+            UPC_lookup(api_key,upc)
+            break
     except KeyboardInterrupt:
         pass
