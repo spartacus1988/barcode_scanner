@@ -92,20 +92,56 @@ def barcode_reader():
 	return ss
 
 def motor_func():
-	GPIO.setmode(GPIO.BCM)
-	pin27=27
-	pin22=22
-	pin9=9
-	pin10=10
-	GPIO.setup(pin27, GPIO.OUT, initial=1)
-	GPIO.setup(pin22, GPIO.OUT, initial=1)
-	time.sleep(15)
-	GPIO.cleanup()
-	time.sleep(10)
-	GPIO.setup(pin9, GPIO.OUT, initial=1)
-	GPIO.setup(pin10, GPIO.OUT, initial=1)
-	time.sleep(15)   
-	GPIO.cleanup()
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setwarnings(False)
+
+		GPIO.setup(10, GPIO.OUT)
+		GPIO.setup(9, GPIO.OUT)
+		GPIO.setup(27, GPIO.OUT)
+		GPIO.setup(22, GPIO.OUT)
+
+		GPIO.output(10, GPIO.LOW)
+		GPIO.output(9, GPIO.LOW)
+		GPIO.output(27, GPIO.LOW)
+		GPIO.output(22, GPIO.LOW)
+
+
+		GPIO.output(10, GPIO.HIGH)
+		GPIO.output(9, GPIO.HIGH)
+		time.sleep(3)
+		GPIO.output(10, GPIO.LOW)
+		GPIO.output(9, GPIO.LOW)
+		time.sleep(3)
+
+		GPIO.output(27, GPIO.HIGH)
+		GPIO.output(22, GPIO.HIGH)
+		time.sleep(3)
+		GPIO.output(27, GPIO.LOW)
+		GPIO.output(22, GPIO.LOW)
+		time.sleep(3)
+
+
+
+
+		# GPIO.setup(pin2, GPIO.OUT, initial=1)
+		# GPIO.setup(pin3, GPIO.OUT, initial=1)
+		# GPIO.output(pin2, 1)
+		# GPIO.output(pin3, 1)
+		# time.sleep(5)
+		# #GPIO.cleanup()
+		# GPIO.output(pin2, 0)
+		# GPIO.output(pin3, 0)
+
+		# time.sleep(3)
+
+		# GPIO.setup(pin4, GPIO.OUT, initial=1)
+		# GPIO.setup(pin17, GPIO.OUT, initial=1)
+
+		# GPIO.output(pin4, 1)
+		# GPIO.output(pin17, 1)
+
+		# time.sleep(5)
+		# GPIO.cleanup()
 
 
 def UPC_lookup(api_key,upc):
@@ -136,7 +172,7 @@ if __name__ == '__main__':
 
 			response = UPC_lookup(api_key,barcode_reader())
 			
-			motor_func()
+			
 
 
 
