@@ -2,7 +2,8 @@
 import sys
 import requests
 import json
-from twilio.rest import Client
+import time 
+import RPi.GPIO as GPIO
 
 
 def extract_api_key(pathfile):
@@ -90,6 +91,23 @@ def barcode_reader():
 						ss += hid[int(ord(c))]
 	return ss
 
+def motor_func():
+	GPIO.setmode(GPIO.BCM)
+	pin27=27
+	pin22=22
+	pin9=9
+	pin10=10
+	GPIO.setup(pin27, GPIO.OUT, initial=1)
+	GPIO.setup(pin22, GPIO.OUT, initial=1)
+	time.sleep(15)
+	GPIO.cleanup()
+	time.sleep(10)
+	GPIO.setup(pin9, GPIO.OUT, initial=1)
+	GPIO.setup(pin10, GPIO.OUT, initial=1)
+	time.sleep(15)   
+	GPIO.cleanup()
+
+
 def UPC_lookup(api_key,upc):
 	'''V3 API'''
 
@@ -106,48 +124,19 @@ def UPC_lookup(api_key,upc):
 	print(json.dumps(response.json(), indent=2))
 	print("-----" * 5 + "\n")
 
+	return response
+
 if __name__ == '__main__':
 	try:
 		while True:
-			#UPC_lookup(api_key,barcode_reader())
-			upc = '072311130127'
+			
 			api_key = extract_api_key('api_key.txt')
 			print(upc)
 			print(api_key)
-			#UPC_lookup(api_key,upc)
-			#UPC_lookup(api_key,barcode_reader())
-			response = {
-						  "category": "", 
-						  "rate/up": "0", 
-						  "upcnumber": "072311130127", 
-						  "description": "Dos Equis Special Lager", 
-						  "newupc": "072311130127", 
-						  "title": "Dos Equis Special Lager", 
-						  "color": "", 
-						  "gender": "", 
-						  "brand": "", 
-						  "alias": "", 
-						  "st0s": "72311130127", 
-						  "status": 200, 
-						  "msrp": "0.00", 
-						  "error": "false", 
-						  "rate/down": "0", 
-						  "type": "", 
-						  "age": "", 
-						  "unit": "&quot;One (1) bo", 
-						  "size": ""
-						}
-			print(json.dumps(response, indent=2))
 
-			account, token = extract_sms_credentials('sms_credentials.txt')
-			print(account)
-			print(token)
-
-			client = Client(account, token)
-
-			message = client.messages.create(to="+12316851234", from_="+15555555555",
-								 body="Hello there!")
-			print(message.sid)
+			response = UPC_lookup(api_key,barcode_reader())
+			
+			motor_func()
 
 
 
