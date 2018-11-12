@@ -92,56 +92,74 @@ def barcode_reader():
 	return ss
 
 def motor_func():
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
 
-		GPIO.setup(10, GPIO.OUT)
-		GPIO.setup(9, GPIO.OUT)
-		GPIO.setup(27, GPIO.OUT)
-		GPIO.setup(22, GPIO.OUT)
+        GPIO.setup(10, GPIO.OUT)
+        GPIO.setup(9, GPIO.OUT)
+        GPIO.setup(27, GPIO.OUT)
+        GPIO.setup(22, GPIO.OUT)
 
-		GPIO.output(10, GPIO.LOW)
-		GPIO.output(9, GPIO.LOW)
-		GPIO.output(27, GPIO.LOW)
-		GPIO.output(22, GPIO.LOW)
+        GPIO.output(10, GPIO.HIGH)
+        GPIO.output(9, GPIO.HIGH)
 
-
-		GPIO.output(10, GPIO.HIGH)
-		GPIO.output(9, GPIO.HIGH)
-		time.sleep(3)
-		GPIO.output(10, GPIO.LOW)
-		GPIO.output(9, GPIO.LOW)
-		time.sleep(3)
-
-		GPIO.output(27, GPIO.HIGH)
-		GPIO.output(22, GPIO.HIGH)
-		time.sleep(3)
-		GPIO.output(27, GPIO.LOW)
-		GPIO.output(22, GPIO.LOW)
-		time.sleep(3)
+        GPIO.output(27, GPIO.HIGH)
+        GPIO.output(22, GPIO.HIGH)
+        print("GPIO10 is "+str(GPIO.input(10)))
+        print("GPIO9 is "+ str(GPIO.input(9)))
+        print("GPIO27 is "+str(GPIO.input(27)))
+        print("GPIO22 is "+ str(GPIO.input(22)))
 
 
 
+        GPIO.output(10, GPIO.LOW)
+        GPIO.output(9, GPIO.LOW)
+        print("GPIO10 is "+str(GPIO.input(10)))
+        print("GPIO9 is "+ str(GPIO.input(9)))
+        print("GPIO27 is "+str(GPIO.input(27)))
+        print("GPIO22 is "+ str(GPIO.input(22)))
 
-		# GPIO.setup(pin2, GPIO.OUT, initial=1)
-		# GPIO.setup(pin3, GPIO.OUT, initial=1)
-		# GPIO.output(pin2, 1)
-		# GPIO.output(pin3, 1)
-		# time.sleep(5)
-		# #GPIO.cleanup()
-		# GPIO.output(pin2, 0)
-		# GPIO.output(pin3, 0)
+        print("We turn ON 9 and 10 and now sleaping 3 sec")
+        time.sleep(3)
+        GPIO.output(10, GPIO.HIGH)
+        GPIO.output(9, GPIO.HIGH)
+        print("GPIO10 is "+ str(GPIO.input(10)))
+        print("GPIO9 is "+ str(GPIO.input(9)))
+        print("GPIO27 is "+str(GPIO.input(27)))
+        print("GPIO22 is "+ str(GPIO.input(22)))
 
-		# time.sleep(3)
+        print("We turn OFF 9 and 10 and now sleaping 3 sec")
+        time.sleep(3)
+        #return
 
-		# GPIO.setup(pin4, GPIO.OUT, initial=1)
-		# GPIO.setup(pin17, GPIO.OUT, initial=1)
+        GPIO.output(27, GPIO.LOW)
+        GPIO.output(22, GPIO.LOW)
+        print("GPIO10 is "+str(GPIO.input(10)))
+        print("GPIO9 is "+ str(GPIO.input(9)))
 
-		# GPIO.output(pin4, 1)
-		# GPIO.output(pin17, 1)
+        print("GPIO27 is "+ str(GPIO.input(27)))
+        print("GPIO22 is "+ str(GPIO.input(22)))
+        print("We turn ON 27 and 22 and now sleaping 3 sec")
+        time.sleep(3)
+        GPIO.output(27, GPIO.HIGH)
+        GPIO.output(22, GPIO.HIGH)
+        print("GPIO10 is "+str(GPIO.input(10)))
+        print("GPIO9 is "+ str(GPIO.input(9)))
 
-		# time.sleep(5)
-		# GPIO.cleanup()
+        print("GPI027 is "+ str(GPIO.input(27)))
+        print("GPIO22 is "+ str(GPIO.input(22)))
+        print("We turn OFF 27 and 22 and now sleaping 3 sec")
+        time.sleep(3)
+        print("FINISH")
+        #GPIO.cleanup()
+        print("We are cleaning up now")
+        print("GPIO10 is "+str(GPIO.input(10)))
+        print("GPIO9 is "+ str(GPIO.input(9)))
+
+        print("GPI027 is "+ str(GPIO.input(27)))
+        print("GPIO22 is "+ str(GPIO.input(22)))
+        GPIO.cleanup()
+
 
 
 def UPC_lookup(api_key,upc):
